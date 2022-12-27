@@ -142,7 +142,7 @@ public class EmployeeDaoImpl {
 
     public void sendSimpleEmail(String toEmail, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("rushikeshnichit@gmail.com");
+        message.setFrom("your@gmail.com");
         message.setTo(toEmail);
         message.setText(body);
         message.setSubject(subject);
