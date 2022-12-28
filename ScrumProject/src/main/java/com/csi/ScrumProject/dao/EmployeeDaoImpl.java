@@ -17,8 +17,6 @@ public class EmployeeDaoImpl {
     //****Scrum project by rushi Nichit
 
 
-
-
     @Autowired
     EmployeeRepository employeeRepositoryImpl;
 
@@ -42,10 +40,12 @@ public class EmployeeDaoImpl {
 
     public Boolean signIn(String email, String password) {
 
+
         for (Employee employee : employeeRepositoryImpl.findAll()) {
+
+
             if (employee.getEmail().equals(email) && employee.getPassword().equals(password)) {
                 flag = true;
-                System.out.println("*********sign in********" + getDataByName(employee.getName()));
             }
         }
 
@@ -117,7 +117,6 @@ public class EmployeeDaoImpl {
         for (Employee employee : employeeRepositoryImpl.findAll()) {
             if (employee.getId() == employee.getId() && employee.getSalary() >= 50000) {
 
-                System.out.println("Yes You are eligible for loan");
             }
         }
         return flag;
@@ -147,7 +146,6 @@ public class EmployeeDaoImpl {
         message.setText(body);
         message.setSubject(subject);
         mailSender.send(message);
-        System.out.println("Mail Send...");
 
 
     }
