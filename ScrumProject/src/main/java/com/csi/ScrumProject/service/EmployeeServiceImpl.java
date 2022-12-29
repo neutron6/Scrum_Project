@@ -26,7 +26,14 @@ public class EmployeeServiceImpl {
     }
 
     public Boolean signIn(String email, String password) {
-        return employeeDaoImpl.signIn(email, password);
+
+
+        for (Employee employee : employeeRepositoryImpl.findAll()) {
+            if (employee.getEmail().equals(email) && employee.getPassword().equals(password)) {
+                flag = true;
+            }
+        }
+        return flag;
     }
 
     public Optional<Employee> getDataById(int id) {
@@ -77,7 +84,7 @@ public class EmployeeServiceImpl {
         return employeeDaoImpl.filterDataBySalary();
     }
 
-    public boolean loanEligibility(int id) {
+    public String loanEligibility(int id) {
         return employeeDaoImpl.loanEligibility(id);
     }
 
