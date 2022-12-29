@@ -1,8 +1,6 @@
 package com.csi.ScrumProject.controller;
 
 import com.csi.ScrumProject.exceptions.EmployeeRecordNotFoundException;
-import com.csi.ScrumProject.exceptions.GetDataByNameException;
-import com.csi.ScrumProject.exceptions.SignInException;
 import com.csi.ScrumProject.model.Employee;
 import com.csi.ScrumProject.service.EmployeeServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -21,36 +19,34 @@ public class EmployeeController {
     //****Scrum project by rushi Nichit
 
 
+
+
+
     @Autowired
     EmployeeServiceImpl employeeServiceImpl;
 
     @PostMapping("/signup")
-    public ResponseEntity<Employee> signUp(@RequestBody Employee employee) throws GetDataByNameException {
-        log.info("########SAVING DATA SUCCESSFULLY######\n" + getDataByName(employee.getName()));
+    public ResponseEntity<Employee> signUp(@RequestBody Employee employee) {
+        log.info("########SAVING DATA SUCCESSFULLY######" + getDataByName(employee.getName()));
         return ResponseEntity.ok(employeeServiceImpl.signUp(employee));
 
     }
 
     @GetMapping("/signin/{email}/{password}")
-    public ResponseEntity<Boolean> signIn(@PathVariable String email, String password) throws SignInException {
-        log.info("*****SIGN IN INITIALIZED BY*****\n" + getDataByEmail(email));
+    public ResponseEntity<Boolean> signIn(@PathVariable String email, String password) {
         return ResponseEntity.ok(employeeServiceImpl.signIn(email, password));
-
-
     }
 
     @GetMapping("/getdatabyid/{id}")
     public ResponseEntity<Optional<Employee>> getDataById(@PathVariable int id) throws EmployeeRecordNotFoundException {
 
-        log.info("*****GET DATA BY ID REQ FETCHED BY*****\n" + "id-->" + getDataById(id));
         Employee employee1 = employeeServiceImpl.getDataById(id).orElseThrow(() -> new RuntimeException());
 
         return ResponseEntity.ok(employeeServiceImpl.getDataById(id));
     }
 
     @GetMapping("/getdatabyname/{name}")
-    public ResponseEntity<List<Employee>> getDataByName(@PathVariable String name) throws GetDataByNameException {
-
+    public ResponseEntity<List<Employee>> getDataByName(@PathVariable String name) {
         return ResponseEntity.ok(employeeServiceImpl.getDataByName(name));
     }
 
@@ -100,9 +96,16 @@ public class EmployeeController {
     }
 
     @GetMapping("/loanEligibility/{id}")
-    public ResponseEntity<Boolean> loanEligibility(@PathVariable int id) throws EmployeeRecordNotFoundException {
-        log.info("*****LOAN ELIGIBLE****-->" + "id--->" + getDataById(id));
-        return ResponseEntity.ok(employeeServiceImpl.loanEligibility(id));
+    public ResponseEntity<String> loanEligibility(@PathVariable int id) {
+        boolean flag = false;
+        employeeServiceImpl.loanEligibility(id);
+
+        for (Employee employee : employeeServiceImpl.getAllData()){
+            if(employee.getId()==id && employee.getSalary()>=50000){
+                flag = true;
+            }
+        }
+        return  ResponseEntity.ok("You are eligible for loan");
     }
 
     @PutMapping("/updateData")
@@ -132,10 +135,7 @@ public class EmployeeController {
 
     @PostMapping("/mail/toEmail/subject/body")
     public void sendSimpleEmail(@RequestParam String toEmail, String subject, String body) {
-
-
-        log.info("email send successfully:\n" + "email send to-->" + toEmail);
-        log.info("msg is--->" + body);
         employeeServiceImpl.sendSimpleEmail(toEmail, subject, body);
     }
 }
+
