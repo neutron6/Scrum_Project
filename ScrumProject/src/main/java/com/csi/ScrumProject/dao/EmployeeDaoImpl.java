@@ -38,18 +38,14 @@ public class EmployeeDaoImpl {
         return employeeRepositoryImpl.save(employee);
     }
 
-    public Boolean signIn(String email, String password) {
-
+   public String loanEligibility(int id) {
 
         for (Employee employee : employeeRepositoryImpl.findAll()) {
-
-
-            if (employee.getEmail().equals(email) && employee.getPassword().equals(password)) {
-                flag = true;
+            if (employee.getId() == id && employee.getSalary() >= 50000) {
+                return  "Yes you are Eligible for loan";
             }
         }
-
-        return flag;
+        return "you are not eligible for loan";
     }
 
     public Optional<Employee> getDataById(int id) {
