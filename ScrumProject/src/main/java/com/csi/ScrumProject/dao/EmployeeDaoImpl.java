@@ -26,6 +26,17 @@ public class EmployeeDaoImpl {
     Employee employee3;
 
     Boolean flag = false;
+    
+    public Boolean signIn(String email, String password) {
+
+
+        for (Employee employee : employeeRepositoryImpl.findAll()) {
+            if (employee.getEmail().equals(email) && employee.getPassword().equals(password)) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
 
     public Employee signUp(Employee employee) {
         for (Employee employee1 : employeeRepositoryImpl.findAll()) {
