@@ -25,15 +25,8 @@ public class EmployeeServiceImpl {
         return employeeDaoImpl.signUp(employee);
     }
 
-    public Boolean signIn(String email, String password) {
-
-
-        for (Employee employee : employeeRepositoryImpl.findAll()) {
-            if (employee.getEmail().equals(email) && employee.getPassword().equals(password)) {
-                flag = true;
-            }
-        }
-        return flag;
+   public Boolean signIn(String email, String password) throws SignInException {
+        return employeeDaoImpl.signIn(email, password);
     }
 
     public Optional<Employee> getDataById(int id) {
