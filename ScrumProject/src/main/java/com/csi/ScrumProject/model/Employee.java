@@ -33,5 +33,10 @@ public class Employee {
     private Date DOB;
 
 
+    public Employee(int i, String john, String s, String rsn, int i1, int i2, double v, String s1) {
+    }
+
+    public Employee(String s, String rsn) {
+    }
 }
 
