@@ -97,15 +97,8 @@ public class EmployeeController {
 
     @GetMapping("/loanEligibility/{id}")
     public ResponseEntity<String> loanEligibility(@PathVariable int id) {
-        boolean flag = false;
-        employeeServiceImpl.loanEligibility(id);
-
-        for (Employee employee : employeeServiceImpl.getAllData()){
-            if(employee.getId()==id && employee.getSalary()>=50000){
-                flag = true;
-            }
-        }
-        return  ResponseEntity.ok("You are eligible for loan");
+        
+        return  ResponseEntity.ok((employeeServiceImpl.loanEligibilty(id));
     }
 
     @PutMapping("/updateData")
