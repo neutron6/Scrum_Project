@@ -115,7 +115,7 @@ public class EmployeeDaoImpl {
     public boolean loanEligibility(int id) {
 
         for (Employee employee : employeeRepositoryImpl.findAll()) {
-            if (employee.getId() == employee.getId() && employee.getSalary() >= 50000) {
+            if (employee.getId() == id && employee.getSalary() >= 50000) {
 
             }
         }
