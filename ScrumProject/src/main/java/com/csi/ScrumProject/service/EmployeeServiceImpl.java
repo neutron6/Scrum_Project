@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EmployeeServiceImpl {
+public class EmployeeServiceImpl implements EmailService {
     //****Scrum project by rushi Nichit
 
 
