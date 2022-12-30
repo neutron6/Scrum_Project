@@ -2,10 +2,21 @@ package com.csi.ScrumProject.service;
 
 import com.csi.ScrumProject.dao.EmployeeDaoImpl;
 import com.csi.ScrumProject.exceptions.EmployeeRecordNotFoundException;
+import com.csi.ScrumProject.exceptions.GetDataByNameException;
+import com.csi.ScrumProject.exceptions.SignInException;
+import com.csi.ScrumProject.model.EmailDetails;
 import com.csi.ScrumProject.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.validation.constraints.Email;
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,22 +24,18 @@ import java.util.Optional;
 public class EmployeeServiceImpl implements EmailService {
     //****Scrum project by rushi Nichit
 
-
-
-
     @Autowired
     EmployeeDaoImpl employeeDaoImpl;
-    
-        @Autowired
+
+    @Autowired
     private JavaMailSender javaMailSender;
 
-    Boolean flag = false;
 
     public Employee signUp(Employee employee) {
         return employeeDaoImpl.signUp(employee);
     }
 
-   public Boolean signIn(String email, String password) throws SignInException {
+    public Boolean signIn(String email, String password) throws SignInException {
         return employeeDaoImpl.signIn(email, password);
     }
 
@@ -36,8 +43,13 @@ public class EmployeeServiceImpl implements EmailService {
         return employeeDaoImpl.getDataById(id);
     }
 
-    public List<Employee> getDataByName(String name) {
-        return employeeDaoImpl.getDataByName(name);
+    public List<Employee> getDataByName(String name) throws GetDataByNameException {
+        if (employeeDaoImpl.getDataByName(name).equals(null)) {
+            throw new GetDataByNameException("Empty Credentials");
+        } else {
+            return employeeDaoImpl.getDataByName(name);
+        }
+
     }
 
     public Employee getDataByEmail(String email) {
@@ -99,8 +111,9 @@ public class EmployeeServiceImpl implements EmailService {
     public Optional<Employee> FetchSecondHighest() {
         return employeeDaoImpl.FetchSecondHighest();
     }
-    
-        @Value("${spring.mail.username}")
+
+
+    @Value("${spring.mail.username}")
     private String sender;
 
     public String sendMailWithAttachment(EmailDetails details) {
