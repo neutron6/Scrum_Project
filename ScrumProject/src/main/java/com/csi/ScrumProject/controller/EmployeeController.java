@@ -125,10 +125,15 @@ public class EmployeeController {
     public Optional<Employee> FetchSecondHighest() {
         return employeeServiceImpl.FetchSecondHighest();
     }
+                                                                    
+    // Sending email with attachment
+    @PostMapping("/sendMailWithAttachment")
+    public String sendMailWithAttachment(
+            @RequestBody EmailDetails details) {
+        String status
+                = emailService.sendMailWithAttachment(details);
 
-    @PostMapping("/mail/toEmail/subject/body")
-    public void sendSimpleEmail(@RequestParam String toEmail, String subject, String body) {
-        employeeServiceImpl.sendSimpleEmail(toEmail, subject, body);
+        return status;
     }
 }
 
