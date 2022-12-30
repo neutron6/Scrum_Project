@@ -13,27 +13,7 @@ import java.util.Scanner;
 @SpringBootApplication
 public class ScrumProjectApplication {
     //****Scrum project by rushi Nichit
-    @Autowired
-    private EmployeeServiceImpl employeeService;
-
     public static void main(String[] args) {
         SpringApplication.run(ScrumProjectApplication.class, args);
-    }
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void triggerMail() throws MessagingException {
-
-
-        Scanner scanner = new Scanner(System.in);
-        String subject = scanner.next();
-
-        String body = scanner.next();
-
-        String toEmail = scanner.next();
-
-        employeeService.sendSimpleEmail(toEmail,
-                subject,
-                body);
-
     }
 }
