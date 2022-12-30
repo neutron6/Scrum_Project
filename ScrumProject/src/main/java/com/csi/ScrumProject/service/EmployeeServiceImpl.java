@@ -96,8 +96,4 @@ public class EmployeeServiceImpl {
     public Optional<Employee> FetchSecondHighest() {
         return employeeDaoImpl.FetchSecondHighest();
     }
-
-    public void sendSimpleEmail(String toEmail, String subject, String body) {
-        employeeDaoImpl.sendSimpleEmail(toEmail, subject, body);
-    }
 }
