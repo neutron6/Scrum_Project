@@ -145,16 +145,5 @@ public class EmployeeDaoImpl {
         return employeeRepositoryImpl.findAll().stream().sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).skip(1).findFirst();
 
     }
-
-    public void sendSimpleEmail(String toEmail, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("your@gmail.com");
-        message.setTo(toEmail);
-        message.setText(body);
-        message.setSubject(subject);
-        mailSender.send(message);
-
-
-    }
 }
 
