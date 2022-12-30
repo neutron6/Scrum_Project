@@ -24,6 +24,9 @@ public class EmployeeController {
 
     @Autowired
     EmployeeServiceImpl employeeServiceImpl;
+    
+        @Autowired
+    private EmailService emailService;
 
     @PostMapping("/signup")
     public ResponseEntity<Employee> signUp(@RequestBody Employee employee) {
