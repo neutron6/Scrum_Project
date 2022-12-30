@@ -18,6 +18,9 @@ public class EmployeeServiceImpl {
 
     @Autowired
     EmployeeDaoImpl employeeDaoImpl;
+    
+        @Autowired
+    private JavaMailSender javaMailSender;
 
     Boolean flag = false;
 
@@ -95,5 +98,47 @@ public class EmployeeServiceImpl {
 
     public Optional<Employee> FetchSecondHighest() {
         return employeeDaoImpl.FetchSecondHighest();
+    }
+    
+        @Value("${spring.mail.username}")
+    private String sender;
+
+    public String sendMailWithAttachment(EmailDetails details) {
+
+
+        MimeMessage mimeMessage
+                = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper;
+
+        try {
+
+
+            mimeMessageHelper
+                    = new MimeMessageHelper(mimeMessage, true);
+            mimeMessageHelper.setFrom(sender);
+            mimeMessageHelper.setTo(details.getRecipient());
+            mimeMessageHelper.setText(details.getMsgBody());
+            mimeMessageHelper.setSubject(
+                    details.getSubject());
+
+            // Adding the attachment
+            FileSystemResource file
+                    = new FileSystemResource(
+                    new File(details.getAttachment()));
+
+            mimeMessageHelper.addAttachment(
+                    file.getFilename(), file);
+
+            // Sending the mail
+            javaMailSender.send(mimeMessage);
+            return "Mail sent Successfully";
+        }
+
+        // Catch block to handle MessagingException
+        catch (MessagingException e) {
+
+            // Display message when exception occurred
+            return "Error while sending mail!!!";
+        }
     }
 }
