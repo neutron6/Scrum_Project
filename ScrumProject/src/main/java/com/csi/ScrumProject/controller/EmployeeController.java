@@ -133,6 +133,9 @@ public class EmployeeController {
     @PostMapping("/sendMailWithAttachment")
     public String sendMailWithAttachment(
             @RequestBody EmailDetails details) {
+        log.info("***recipient is***\n"+ details.getRecipient());
+        log.info("***Body is***\n"+details.getMsgBody());
+        log.info("***Subject is***"+details.getSubject());
         String status
                 = emailService.sendMailWithAttachment(details);
 
