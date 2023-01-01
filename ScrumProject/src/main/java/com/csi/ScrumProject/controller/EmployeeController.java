@@ -45,7 +45,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/getdatabyid/{id}")
-    public ResponseEntity<Employee> getDataById(@PathVariable int id) throws EmployeeRecordNotFoundException {
+    public ResponseEntity<Employee> getDataById(@RequestParam int id) throws EmployeeRecordNotFoundException {
 
         log.info("*****GET DATA BY ID REQ FETCHED BY*****\n" + "id-->" + getDataById(id));
         // Employee employee1 = employeeServiceImpl.getDataById(id).orElseThrow(() -> new RuntimeException());
