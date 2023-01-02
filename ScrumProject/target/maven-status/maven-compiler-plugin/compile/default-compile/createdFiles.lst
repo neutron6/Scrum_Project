@@ -1,6 +1,10 @@
 com\csi\ScrumProject\controller\EmployeeController.class
 com\csi\ScrumProject\dao\EmployeeDaoImpl.class
+com\csi\ScrumProject\exceptions\GetDataByNameException.class
+com\csi\ScrumProject\exceptions\SignInException.class
 com\csi\ScrumProject\exceptions\EmployeeRecordNotFoundException.class
+com\csi\ScrumProject\model\EmailDetails.class
+com\csi\ScrumProject\service\EmailService.class
 com\csi\ScrumProject\model\Employee.class
 com\csi\ScrumProject\ScrumProjectApplication.class
 com\csi\ScrumProject\service\EmployeeServiceImpl.class
